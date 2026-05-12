@@ -1,53 +1,72 @@
-
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Space+Mono:wght@700&display=swap');
-  *{box-sizing:border-box;margin:0;padding:0}
-  :root{--strava-orange:#FC4C02;--strava-dark:#1D1D1D}
-  .root{font-family:'DM Sans',sans-serif;padding:12px 0 32px;max-width:680px}
-  .header{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;padding-bottom:14px;border-bottom:1.5px solid var(--strava-orange)}
-  .logo{display:flex;align-items:center;gap:8px}
-  .logo-mark{width:28px;height:28px;background:var(--strava-orange);clip-path:polygon(50% 0%,100% 38%,80% 100%,20% 100%,0% 38%);flex-shrink:0}
-  .logo-text{font-family:'Space Mono',monospace;font-size:15px;font-weight:700;color:var(--color-text-primary);letter-spacing:-.5px}
-  .subtitle{font-size:12px;color:var(--color-text-secondary);margin-top:2px}
-  .event-pills{display:flex;gap:6px}
-  .pill{font-size:11px;font-weight:500;padding:4px 10px;border-radius:20px;background:rgba(252,76,2,0.1);color:var(--strava-orange);cursor:pointer;border:0.5px solid rgba(252,76,2,0.3);transition:background .15s}
-  .pill.active,.pill:hover{background:var(--strava-orange);color:#fff}
-  .controls{display:flex;align-items:center;gap:12px;margin-bottom:20px;font-size:13px;color:var(--color-text-secondary);flex-wrap:wrap}
-  .ctrl-label{font-weight:500;color:var(--color-text-primary)}
-  .legend{display:flex;gap:12px;align-items:center;font-size:12px}
-  .leg-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
-  .spacer{flex:1}
-  .export-btn{font-size:12px;padding:7px 14px;border-radius:7px;border:0.5px solid var(--strava-orange);background:transparent;color:var(--strava-orange);cursor:pointer;font-family:'DM Sans',sans-serif;font-weight:500;transition:background .15s}
-  .export-btn:hover{background:var(--strava-orange);color:#fff}
-  .timeline{position:relative}
-  .month-label{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:1px;color:var(--strava-orange);font-weight:700;text-transform:uppercase;margin:18px 0 8px;padding-left:28px;opacity:.7}
-  .row{display:grid;grid-template-columns:110px 1fr;align-items:stretch;min-height:44px;border-radius:8px;transition:background .12s}
-  .row:hover{background:var(--color-background-secondary)}
-  .date-col{padding:10px 10px 10px 0;display:flex;align-items:flex-start;gap:6px;flex-shrink:0}
-  .week-badge{font-size:10px;font-weight:600;color:var(--color-text-tertiary);min-width:38px;padding-top:1px;letter-spacing:.3px}
-  .dot-col{display:flex;flex-direction:column;align-items:center;width:18px;flex-shrink:0}
-  .dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;margin-top:3px;transition:transform .15s;cursor:pointer}
-  .row:hover .dot{transform:scale(1.25)}
-  .vline{flex:1;width:1.5px;background:var(--color-border-tertiary);margin-top:2px}
-  .vline.orange{background:rgba(252,76,2,0.18)}
-  .content-col{padding:8px 8px 8px 10px;flex:1}
-  .task-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
-  .task-name{font-size:13px;font-weight:500;color:var(--color-text-primary);cursor:pointer;border:none;background:transparent;font-family:'DM Sans',sans-serif;padding:0;text-align:left;flex:1;min-width:120px}
-  .task-name:focus-visible{outline:2px solid var(--strava-orange);border-radius:3px}
-  .tag{font-size:10px;font-weight:600;padding:2px 7px;border-radius:10px;letter-spacing:.3px;white-space:nowrap}
-  .tag-partner{background:rgba(252,76,2,0.1);color:#993C1D}
-  .tag-content{background:rgba(99,153,34,0.12);color:#3B6D11}
-  .tag-ops{background:rgba(24,95,165,0.1);color:#185FA5}
-  .tag-production{background:rgba(186,117,23,0.12);color:#854F0B}
-  .tag-run{background:#1D1D1D;color:#fff}
-  .event-row{background:rgba(252,76,2,0.04);border:0.5px solid rgba(252,76,2,0.2);border-radius:10px;margin:6px 0}
-  .event-row .task-name{font-weight:600}
-  .note-input{font-size:11px;color:var(--color-text-secondary);border:none;background:transparent;font-family:'DM Sans',sans-serif;padding:0;width:100%;margin-top:2px;cursor:text}
-  .note-input::placeholder{color:var(--color-text-tertiary)}
-  .note-input:focus-visible{outline:none;border-bottom:0.5px dashed var(--color-border-secondary)}
-  .footer{margin-top:20px;border-top:0.5px solid var(--color-border-tertiary);padding-top:14px;display:flex;align-items:center;gap:10px}
-</style>
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Strava Creator Run — Workback Timeline</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Space+Mono:wght@700&display=swap" rel="stylesheet">
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{background:#f5f3ef;min-height:100vh;display:flex;justify-content:center;padding:40px 16px}
+    :root{
+      --strava-orange:#FC4C02;
+      --strava-dark:#1D1D1D;
+      --color-text-primary:#1a1a1a;
+      --color-text-secondary:#5f5e5a;
+      --color-text-tertiary:#9c9a92;
+      --color-background-primary:#ffffff;
+      --color-background-secondary:#f5f3ef;
+      --color-border-tertiary:rgba(0,0,0,0.12);
+      --color-border-secondary:rgba(0,0,0,0.22);
+    }
+    .card{background:#fff;border-radius:16px;padding:32px;max-width:720px;width:100%;box-shadow:0 1px 4px rgba(0,0,0,0.08)}
+    .root{font-family:'DM Sans',sans-serif;width:100%}
+    .header{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;padding-bottom:14px;border-bottom:1.5px solid var(--strava-orange);flex-wrap:wrap;gap:12px}
+    .logo{display:flex;align-items:center;gap:8px}
+    .logo-mark{width:28px;height:28px;background:var(--strava-orange);clip-path:polygon(50% 0%,100% 38%,80% 100%,20% 100%,0% 38%);flex-shrink:0}
+    .logo-text{font-family:'Space Mono',monospace;font-size:15px;font-weight:700;color:var(--color-text-primary);letter-spacing:-.5px}
+    .subtitle{font-size:12px;color:var(--color-text-secondary);margin-top:2px}
+    .event-pills{display:flex;gap:6px}
+    .pill{font-size:11px;font-weight:500;padding:4px 10px;border-radius:20px;background:rgba(252,76,2,0.1);color:var(--strava-orange);cursor:pointer;border:0.5px solid rgba(252,76,2,0.3);transition:background .15s}
+    .pill.active,.pill:hover{background:var(--strava-orange);color:#fff}
+    .controls{display:flex;align-items:center;gap:12px;margin-bottom:20px;font-size:13px;color:var(--color-text-secondary);flex-wrap:wrap}
+    .legend{display:flex;gap:12px;align-items:center;font-size:12px}
+    .leg-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
+    .spacer{flex:1}
+    .export-btn{font-size:12px;padding:7px 14px;border-radius:7px;border:0.5px solid var(--strava-orange);background:transparent;color:var(--strava-orange);cursor:pointer;font-family:'DM Sans',sans-serif;font-weight:500;transition:background .15s}
+    .export-btn:hover{background:var(--strava-orange);color:#fff}
+    .timeline{position:relative}
+    .month-label{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:1px;color:var(--strava-orange);font-weight:700;text-transform:uppercase;margin:18px 0 8px;padding-left:28px;opacity:.7}
+    .row{display:grid;grid-template-columns:110px 1fr;align-items:stretch;min-height:44px;border-radius:8px;transition:background .12s}
+    .row:hover{background:var(--color-background-secondary)}
+    .date-col{padding:10px 10px 10px 0;display:flex;align-items:flex-start;gap:6px;flex-shrink:0}
+    .week-badge{font-size:10px;font-weight:600;color:var(--color-text-tertiary);min-width:38px;padding-top:1px;letter-spacing:.3px}
+    .dot-col{display:flex;flex-direction:column;align-items:center;width:18px;flex-shrink:0}
+    .dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;margin-top:3px;transition:transform .15s;cursor:pointer}
+    .row:hover .dot{transform:scale(1.25)}
+    .vline{flex:1;width:1.5px;background:rgba(0,0,0,0.1);margin-top:2px}
+    .vline.orange{background:rgba(252,76,2,0.18)}
+    .content-col{padding:8px 8px 8px 10px;flex:1}
+    .task-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+    .task-name{font-size:13px;font-weight:500;color:var(--color-text-primary);cursor:pointer;border:none;background:transparent;font-family:'DM Sans',sans-serif;padding:0;text-align:left;flex:1;min-width:120px}
+    .task-name:focus-visible{outline:2px solid var(--strava-orange);border-radius:3px}
+    .tag{font-size:10px;font-weight:600;padding:2px 7px;border-radius:10px;letter-spacing:.3px;white-space:nowrap}
+    .tag-partner{background:rgba(252,76,2,0.1);color:#993C1D}
+    .tag-content{background:rgba(99,153,34,0.12);color:#3B6D11}
+    .tag-ops{background:rgba(24,95,165,0.1);color:#185FA5}
+    .tag-production{background:rgba(186,117,23,0.12);color:#854F0B}
+    .tag-run{background:#1D1D1D;color:#fff}
+    .event-row{background:rgba(252,76,2,0.04);border:0.5px solid rgba(252,76,2,0.2);border-radius:10px;margin:6px 0}
+    .event-row .task-name{font-weight:600}
+    .note-input{font-size:11px;color:var(--color-text-secondary);border:none;background:transparent;font-family:'DM Sans',sans-serif;padding:0;width:100%;margin-top:2px;cursor:text}
+    .note-input::placeholder{color:var(--color-text-tertiary)}
+    .note-input:focus{outline:none;border-bottom:0.5px dashed rgba(0,0,0,0.22)}
+    .footer{margin-top:20px;border-top:0.5px solid rgba(0,0,0,0.12);padding-top:14px;display:flex;align-items:center;gap:10px}
+  </style>
+</head>
+<body>
+<div class="card">
 <div class="root">
   <div class="header">
     <div class="logo">
@@ -66,19 +85,20 @@
 
   <div class="controls">
     <div class="legend">
-      <div class="leg-dot" style="background:var(--strava-orange)"></div><span>Event/Run</span>
-      <div class="leg-dot" style="background:var(--color-text-secondary)"></div><span>Task</span>
+      <div class="leg-dot" style="background:#FC4C02"></div><span>Event/Run</span>
+      <div class="leg-dot" style="background:#9c9a92"></div><span>Task</span>
     </div>
     <div class="spacer"></div>
-    <button class="export-btn" onclick="exportCSV()">↓ Export CSV</button>
+    <button class="export-btn" onclick="exportCSV()">&#8595; Export CSV</button>
   </div>
 
   <div class="timeline" id="timeline"></div>
 
   <div class="footer">
     <div class="logo-mark" style="width:18px;height:18px"></div>
-    <span style="font-size:11px;color:var(--color-text-tertiary)">All task names and notes are editable · Click any field to edit</span>
+    <span style="font-size:11px;color:#9c9a92">All task names and notes are editable &middot; Click any field to edit</span>
   </div>
+</div>
 </div>
 
 <script>
@@ -109,6 +129,7 @@ const ITEMS = [
 
 const tagColors={partner:'tag-partner',content:'tag-content',ops:'tag-ops',production:'tag-production',run:'tag-run'};
 const tagLabels={partner:'PARTNER',content:'CONTENT',ops:'OPS',production:'PRODUCTION',run:'RUN DAY'};
+const weekLabels={'W-7':'Week -7','W-6':'Week -6','W-5':'Week -5','W-4':'Week -4','W-3':'Week -3','W+1':'-- Between runs --','EVENT':'-- Event days --','Post':'-- Post-event --','Race':'-- Race week --'};
 let activeFilter='all';
 let items=ITEMS.map((d,i)=>({...d,id:i,taskLabel:d.label,taskNote:d.note,done:false}));
 
@@ -128,32 +149,33 @@ function render(){
     const isLast=idx===filtered.length-1;
     const vlineClass=item.isEvent?'vline orange':'vline';
     const dotStyle=item.isEvent
-      ?`style="width:14px;height:14px;background:var(--strava-orange);border:2.5px solid var(--color-background-primary)"`
-      :item.done?`style="background:var(--strava-orange)"`:`style="background:var(--color-border-secondary);border:1.5px solid var(--color-border-secondary)"`;
+      ?'style="width:14px;height:14px;background:#FC4C02;border:2.5px solid #fff"'
+      :item.done?'style="background:#FC4C02"':'style="background:#d3d1c7;border:1.5px solid #d3d1c7"';
     if(item.week!==curWeek){
       curWeek=item.week;
-      const labels={'W-7':'Week −7','W-6':'Week −6','W-5':'Week −5','W-4':'Week −4','W-3':'Week −3','W+1':'── Between runs ──','EVENT':'── Event days ──','Post':'── Post-event ──','Race':'── Race week ──'};
-      html+=`<div class="month-label">${labels[item.week]||item.week}</div>`;
+      html+='<div class="month-label">'+(weekLabels[item.week]||item.week)+'</div>';
     }
     const rowClass=item.isEvent?'row event-row':'row';
     const tagCls=tagColors[item.tag]||'tag-ops';
     const tagLabel=tagLabels[item.tag]||item.tag.toUpperCase();
-    html+=`<div class="${rowClass}" id="row-${item.id}">
-      <div class="date-col">
-        <div class="week-badge">${item.date}</div>
-        <div class="dot-col">
-          <div class="dot" ${dotStyle} onclick="toggleDone(${item.id})" title="Toggle done"></div>
-          ${!isLast?`<div class="${vlineClass}"></div>`:''}
-        </div>
-      </div>
-      <div class="content-col">
-        <div class="task-row">
-          <input class="task-name" value="${item.taskLabel}" onchange="updateLabel(${item.id},this.value)" ${item.isEvent?'readonly':''}/>
-          <span class="tag ${tagCls}">${tagLabel}</span>
-        </div>
-        ${!item.isEvent?`<input class="note-input" value="${item.taskNote}" placeholder="Add a note…" onchange="updateNote(${item.id},this.value)"/>`:''}
-      </div>
-    </div>`;
+    const safeLabel=item.taskLabel.replace(/"/g,'&quot;');
+    const safeNote=item.taskNote.replace(/"/g,'&quot;');
+    html+='<div class="'+rowClass+'" id="row-'+item.id+'">'
+      +'<div class="date-col">'
+        +'<div class="week-badge">'+item.date+'</div>'
+        +'<div class="dot-col">'
+          +'<div class="dot" '+dotStyle+' onclick="toggleDone('+item.id+')" title="Toggle done"></div>'
+          +(!isLast?'<div class="'+vlineClass+'"></div>':'')
+        +'</div>'
+      +'</div>'
+      +'<div class="content-col">'
+        +'<div class="task-row">'
+          +'<input class="task-name" value="'+safeLabel+'" onchange="updateLabel('+item.id+',this.value)" '+(item.isEvent?'readonly':'')+'/>'
+          +'<span class="tag '+tagCls+'">'+tagLabel+'</span>'
+        +'</div>'
+        +(!item.isEvent?'<input class="note-input" value="'+safeNote+'" placeholder="Add a note..." onchange="updateNote('+item.id+',this.value)"/>':"")
+      +'</div>'
+    +'</div>';
   });
   tl.innerHTML=html;
 }
@@ -163,10 +185,10 @@ function updateLabel(id,val){items[id].taskLabel=val;}
 function updateNote(id,val){items[id].taskNote=val;}
 
 function exportCSV(){
-  const rows=[['Date','Week','Task','Tag','Notes']];
-  items.forEach(it=>rows.push([it.date,it.week,it.taskLabel,it.tag,it.taskNote]));
-  const csv=rows.map(r=>r.map(c=>`"${String(c).replace(/"/g,'""')}"`).join(',')).join('\n');
-  const a=document.createElement('a');
+  var rows=[['Date','Week','Task','Tag','Notes']];
+  items.forEach(function(it){rows.push([it.date,it.week,it.taskLabel,it.tag,it.taskNote]);});
+  var csv=rows.map(function(r){return r.map(function(c){return '"'+String(c).replace(/"/g,'""')+'"';}).join(',');}).join('\n');
+  var a=document.createElement('a');
   a.href='data:text/csv;charset=utf-8,'+encodeURIComponent(csv);
   a.download='strava-creator-run-workback-v2.csv';
   a.click();
@@ -174,3 +196,5 @@ function exportCSV(){
 
 render();
 </script>
+</body>
+</html>
